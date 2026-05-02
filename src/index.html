@@ -37,19 +37,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .badge-g{background:#ecfdf5;color:#065f46}
 .badge-r{background:#fef2f2;color:#991b1b}
 .badge-b{background:#dbeafe;color:#1e40af}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#065f46;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:500;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#065f46;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:500;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:slideDown .3s ease}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:1000;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal-box{background:#fff;border-radius:20px;padding:24px;max-width:360px;width:100%;animation:scaleIn .2s ease}
+@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.page.active{animation:fadeIn .25s ease}
+.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;background:linear-gradient(180deg,#fff 0%,#f0f4ff 100%)}
+.input{width:100%;padding:12px 16px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;transition:.2s;background:#fff}
+.input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn:active{transform:scale(.97)}
+.btn-p{background:#2563eb;color:#fff}
+.btn-p:hover{background:#1d4ed8}
+.btn-outline{background:transparent;border:1.5px solid #e2e8f0;color:#475569;transition:all .2s}
+.btn-outline:hover{border-color:#2563eb;color:#2563eb}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" id="modalBox">
+    <div id="modalIcon" style="font-size:32px;text-align:center;margin-bottom:8px"></div>
+    <h3 id="modalTitle" style="text-align:center;font-size:16px;font-weight:600;margin-bottom:8px"></h3>
+    <p id="modalText" style="text-align:center;font-size:14px;color:#64748b;margin-bottom:16px"></p>
+    <button class="btn btn-p" onclick="closeModal()" style="max-width:200px;margin:0 auto;display:block">OK</button>
+  </div>
+</div>
 
 <!-- SPLASH / LOGIN -->
 <div class="page active" id="pageLogin">
 <div class="splash">
-  <div style="font-size:48px;margin-bottom:8px">📊</div>
-  <h1 style="font-size:24px;font-weight:800;color:#0f172a">SuiviChauffeur</h1>
-  <p style="color:#64748b;margin:4px 0 32px;font-size:14px">Votre rentabilite en un clic</p>
+  <div style="width:72px;height:72px;background:linear-gradient(135deg,#2563eb,#1e40af);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(37,99,235,.25)">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+  </div>
+  <h1 style="font-size:26px;font-weight:800;color:#0f172a;letter-spacing:-.5px">SuiviChauffeur</h1>
+  <p style="color:#64748b;margin:4px 0 32px;font-size:15px">Votre rentabilite en un clic</p>
 
   <div id="loginForm" style="width:100%;max-width:360px">
     <input class="input" id="loginEmail" placeholder="Email" type="email" style="margin-bottom:10px">
@@ -210,10 +236,10 @@ function register() {
   const p=document.getElementById('regPass').value;
   const ph=document.getElementById('regPhone').value.trim();
   const c=document.getElementById('regCompany').value.trim();
-  if(!n||!e||!p) return showToast('Champs requis');
-  if(p.length<6) return showToast('Mot de passe trop court');
+  if(!n||!e||!p) return showModal('⚠️','Champs requis','Veuillez remplir tous les champs obligatoires');
+  if(p.length<6) return showModal('⚠️','Mot de passe trop court','Minimum 6 caracteres');
   let users = JSON.parse(localStorage.getItem('sc_users')||'[]');
-  if(users.find(x=>x.email===e)) return showToast('Email deja utilise');
+  if(users.find(x=>x.email===e)) return showModal('❌','Email deja utilise','Cet email est deja associe a un compte');
   users.push({id:Date.now(),name:n,email:e,pass:p,phone:ph,company:c,created:new Date().toISOString()});
   localStorage.setItem('sc_users',JSON.stringify(users));
   APP.user=users[users.length-1]; save(); showToast('Compte cree !');
@@ -233,6 +259,8 @@ function navigate(p) {
   event.currentTarget.classList.add('active');
 }
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
+function showModal(icon,title,text){document.getElementById('modalIcon').textContent=icon;document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('modalOverlay').classList.add('active')}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
 
 // ==================== DASHBOARD ====================
 function renderDash() {
