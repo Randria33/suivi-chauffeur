@@ -1,0 +1,4 @@
+﻿node_modules/
+_bmad/
+*.log
+.DS_Store

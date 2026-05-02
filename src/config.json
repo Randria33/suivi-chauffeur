@@ -1,0 +1,10 @@
+﻿{
+  "appName": "SuiviChauffeur",
+  "domain": "suivi-chauffeur.fr",
+  "supabaseUrl": "https://votre-projet.supabase.co",
+  "supabaseAnonKey": "votre-cle-anon",
+  "stripePublishableKey": "votre-cle-stripe",
+  "version": "1.0.0",
+  "trialDays": 14,
+  "priceMonth": 9.99
+}
