@@ -3,408 +3,363 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#2563eb">
-<meta name="description" content="SuiviChauffeur - Votre rentabilite en un clic">
-<link rel="manifest" href="/manifest.json">
-<title>SuiviChauffeur</title>
+<meta name="theme-color" content="#0f172a">
+<title>ProxiFlotte - Pilotage TPE Transport</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-tailwind.config={theme:{extend:{colors:{primary:{50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a8a'}}}}}
+tailwind.config={theme:{extend:{colors:{pf:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}}}}}
 </script>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8fafc;margin:0;padding:0;padding-bottom:80px}
-.page{display:none;max-width:480px;margin:0 auto;padding:16px}
-.page.active{display:block}
-.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center}
-.input{width:100%;padding:12px 16px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;transition:.2s;background:#fff}
-.input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;transition:.15s}
-.btn:active{transform:scale(.97)}
-.btn-p{background:#2563eb;color:#fff}
-.btn-p:hover{background:#1d4ed8}
-.btn-outline{background:transparent;border:1.5px solid #e2e8f0;color:#475569}
-.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);border:1px solid #f1f5f9;margin-bottom:12px}
-.stat{text-align:center}
-.stat .v{font-size:28px;font-weight:800}
-.stat .l{font-size:11px;color:#94a3b8;margin-top:2px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #f1f5f9;padding:8px 0;max-width:480px;margin:0 auto;z-index:100}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;margin:0;padding:0}
+.page{display:none;max-width:480px;margin:0 auto;padding:0}.page.active{display:block}
+.top-bar{background:#1e293b;padding:16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155;position:sticky;top:0;z-index:10}
+.top-bar h1{font-size:16px;font-weight:700;color:#f1f5f9}
+.top-bar .avatar{width:36px;height:36px;border-radius:10px;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#1e293b;border-top:1px solid #334155;padding:6px 0;max-width:480px;margin:0 auto;z-index:100}
 .nav-inner{display:flex;justify-content:space-around}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 16px;border-radius:8px;border:none;background:none;cursor:pointer;font-size:10px;color:#94a3b8;transition:.15s}
-.nav-item.active{color:#2563eb}
-.nav-item svg{width:22px;height:22px}
-.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:500}
-.badge-g{background:#ecfdf5;color:#065f46}
-.badge-r{background:#fef2f2;color:#991b1b}
-.badge-b{background:#dbeafe;color:#1e40af}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#065f46;color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:500;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:slideDown .3s ease}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:1000;justify-content:center;align-items:center;padding:20px}
-.modal-overlay.active{display:flex}
-.modal-box{background:#fff;border-radius:20px;padding:24px;max-width:360px;width:100%;animation:scaleIn .2s ease}
-@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.page.active{animation:fadeIn .25s ease}
-.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;background:linear-gradient(180deg,#fff 0%,#f0f4ff 100%)}
-.input{width:100%;padding:12px 16px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;outline:none;transition:.2s;background:#fff}
-.input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:1px;padding:4px 12px;border-radius:8px;border:none;background:none;cursor:pointer;font-size:9px;color:#64748b;transition:.15s}
+.nav-item.active{color:#818cf8}.nav-item svg{width:20px;height:20px}
+.card{background:#1e293b;border-radius:12px;padding:16px;margin:8px 12px;border:1px solid #334155}
+.card-light{background:#0f172a}
+.input{width:100%;padding:10px 14px;border:1px solid #334155;border-radius:8px;font-size:14px;outline:none;transition:.2s;background:#0f172a;color:#e2e8f0}
+.input:focus{border-color:#6366f1}
+.btn{width:100%;padding:12px;border-radius:8px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}
 .btn:active{transform:scale(.97)}
-.btn-p{background:#2563eb;color:#fff}
-.btn-p:hover{background:#1d4ed8}
-.btn-outline{background:transparent;border:1.5px solid #e2e8f0;color:#475569;transition:all .2s}
-.btn-outline:hover{border-color:#2563eb;color:#2563eb}
+.btn-primary{background:#4f46e5;color:#fff}.btn-primary:hover{background:#4338ca}
+.btn-outline{background:transparent;border:1px solid #334155;color:#94a3b8}
+.stat .v{font-size:28px;font-weight:800;color:#f1f5f9}
+.stat .l{font-size:11px;color:#64748b;margin-top:2px}
+.badge{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:500;display:inline-block}
+.badge-green{background:#065f46;color:#6ee7b7}
+.badge-red{background:#7f1d1d;color:#fca5a5}
+.badge-blue{background:#1e3a5f;color:#93c5fd}
+.badge-gray{background:#334155;color:#94a3b8}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#065f46;color:#6ee7b7;padding:10px 20px;border-radius:8px;font-size:13px;z-index:999;display:none;border:1px solid #065f46}
+.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;text-align:center;background:#0f172a}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal-box{background:#1e293b;border-radius:12px;padding:20px;max-width:400px;width:100%;border:1px solid #334155}
+.modal-box h3{color:#f1f5f9;margin-bottom:12px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page.active{animation:fadeIn .2s ease}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast"></div>
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-  <div class="modal-box" id="modalBox">
-    <div id="modalIcon" style="font-size:32px;text-align:center;margin-bottom:8px"></div>
-    <h3 id="modalTitle" style="text-align:center;font-size:16px;font-weight:600;margin-bottom:8px"></h3>
-    <p id="modalText" style="text-align:center;font-size:14px;color:#64748b;margin-bottom:16px"></p>
-    <button class="btn btn-p" onclick="closeModal()" style="max-width:200px;margin:0 auto;display:block">OK</button>
-  </div>
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal-box" id="modalBox"></div>
 </div>
 
-<!-- SPLASH / LOGIN -->
+<!-- LOGIN -->
 <div class="page active" id="pageLogin">
 <div class="splash">
-  <div style="width:72px;height:72px;background:linear-gradient(135deg,#2563eb,#1e40af);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(37,99,235,.25)">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+  <div style="width:64px;height:64px;background:linear-gradient(135deg,#4f46e5,#6366f1);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
   </div>
-  <h1 style="font-size:26px;font-weight:800;color:#0f172a;letter-spacing:-.5px">SuiviChauffeur</h1>
-  <p style="color:#64748b;margin:4px 0 32px;font-size:15px">Votre rentabilite en un clic</p>
-
-  <div id="loginForm" style="width:100%;max-width:360px">
-    <input class="input" id="loginEmail" placeholder="Email" type="email" style="margin-bottom:10px">
+  <h1 style="font-size:24px;font-weight:800;color:#f1f5f9">ProxiFlotte</h1>
+  <p style="color:#64748b;margin:4px 0 32px;font-size:14px">Pilotage TPE Transport</p>
+  <div id="loginForm" style="width:100%;max-width:340px">
+    <input class="input" id="loginEmail" placeholder="Email" style="margin-bottom:10px">
     <input class="input" id="loginPass" placeholder="Mot de passe" type="password" style="margin-bottom:16px">
-    <button class="btn btn-p" onclick="login()">Se connecter</button>
-    <p style="text-align:center;margin-top:12px;font-size:13px;color:#94a3b8">
-      Pas de compte ? <a href="#" onclick="showRegister()" style="color:#2563eb;font-weight:600;text-decoration:none">Creer un compte</a>
-    </p>
-    <p style="text-align:center;margin-top:8px;font-size:11px;color:#cbd5e1">14 jours d'essai gratuit</p>
+    <button class="btn btn-primary" onclick="login()">Se connecter</button>
+    <p style="text-align:center;margin-top:12px;font-size:13px;color:#64748b">Pas de compte ? <a href="#" onclick="showRegister()" style="color:#818cf8;text-decoration:none">Creer</a></p>
   </div>
-
-  <div id="registerForm" style="display:none;width:100%;max-width:360px">
-    <input class="input" id="regName" placeholder="Nom complet" style="margin-bottom:10px">
-    <input class="input" id="regEmail" placeholder="Email" type="email" style="margin-bottom:10px">
-    <input class="input" id="regPass" placeholder="Mot de passe (6 caracteres min)" type="password" style="margin-bottom:10px">
-    <input class="input" id="regPhone" placeholder="Telephone" type="tel" style="margin-bottom:10px">
-    <input class="input" id="regCompany" placeholder="Societe (optionnel)" style="margin-bottom:16px">
-    <button class="btn btn-p" onclick="register()">Creer mon compte</button>
-    <p style="text-align:center;margin-top:12px;font-size:13px;color:#94a3b8">
-      Deja inscrit ? <a href="#" onclick="showLogin()" style="color:#2563eb;font-weight:600;text-decoration:none">Se connecter</a>
-    </p>
+  <div id="registerForm" style="display:none;width:100%;max-width:340px">
+    <input class="input" id="regName" placeholder="Nom de l'entreprise" style="margin-bottom:10px">
+    <input class="input" id="regPrenom" placeholder="Votre prenom" style="margin-bottom:10px">
+    <input class="input" id="regEmail" placeholder="Email" style="margin-bottom:10px">
+    <input class="input" id="regPass" placeholder="Mot de passe" type="password" style="margin-bottom:16px">
+    <button class="btn btn-primary" onclick="register()">Creer mon espace</button>
+    <p style="text-align:center;margin-top:12px;font-size:13px;color:#64748b">Deja inscrit ? <a href="#" onclick="showLogin()" style="color:#818cf8;text-decoration:none">Connectez-vous</a></p>
   </div>
 </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- PATRON DASHBOARD -->
 <div class="page" id="pageDashboard">
-  <div style="margin-bottom:20px">
-    <div class="flex justify-between items-center mb-1">
-      <div><p style="font-size:13px;color:#94a3b8">Bonjour</p><h2 style="font-size:20px;font-weight:700" id="dashName">Chauffeur</h2></div>
-      <div onclick="showToast('Deconnexion')" style="background:#f1f5f9;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer">🚪</div>
+<div class="top-bar"><h1>ProxiFlotte</h1><div class="avatar" onclick="showProfil()" id="avatarLetter">P</div></div>
+<div style="padding:8px 12px">
+
+  <div class="card" style="background:linear-gradient(135deg,#1e293b,#312e81);border-color:#4338ca">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+      <div><p style="font-size:11px;color:#a5b4fc">CA du mois</p><p style="font-size:28px;font-weight:800;color:#f1f5f9;margin-top:2px" id="caMois">0 EUR</p></div>
+      <div style="text-align:right"><p style="font-size:11px;color:#a5b4fc">Marge</p><p style="font-size:20px;font-weight:700;color:#6ee7b7" id="margeMois">0 EUR</p></div>
     </div>
-    <div class="card" style="background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;border:none">
-      <p style="font-size:12px;opacity:.8">Gains du mois</p>
-      <p style="font-size:32px;font-weight:800" id="monthGains">0 EUR</p>
-      <div class="flex gap-4 mt-2" style="font-size:12px;opacity:.8">
-        <span>Depenses: <strong id="monthDep">0 EUR</strong></span>
-        <span>Marge: <strong id="monthMarge">0 EUR</strong></span>
-      </div>
+    <div style="display:flex;gap:16px;margin-top:12px;font-size:12px;color:#a5b4fc">
+      <span>Depenses: <strong style="color:#fca5a5" id="depMois">0</strong></span>
+      <span>Chauffeurs: <strong style="color:#93c5fd" id="nbChauffeurs">0</strong></span>
     </div>
   </div>
 
-  <div class="grid grid-cols-4 gap-2 mb-4" id="quickStats"></div>
-
-  <div style="display:flex;gap:8px;margin-bottom:16px">
-    <button class="btn btn-outline" style="flex:1;padding:10px;font-size:13px" onclick="showPage('pageSaisie')">+ Nouvelle saisie</button>
-    <button class="btn btn-outline" style="flex:1;padding:10px;font-size:13px" onclick="exportPDF()">📄 Export PDF</button>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0">
+    <div class="card" style="text-align:center;padding:12px"><div class="v" style="font-size:22px" id="totalKm">0</div><div class="l">Km</div></div>
+    <div class="card" style="text-align:center;padding:12px"><div class="v" style="font-size:22px" id="totalColis">0</div><div class="l">Colis</div></div>
+    <div class="card" style="text-align:center;padding:12px"><div class="v" style="font-size:22px" id="nbJours">0</div><div class="l">Jours</div></div>
   </div>
 
-  <h3 style="font-size:14px;font-weight:600;margin-bottom:8px">Dernieres saisies</h3>
-  <div id="lastEntries"></div>
+  <h3 style="font-size:13px;font-weight:600;color:#94a3b8;margin:12px 12px 6px">EQUIPE</h3>
+  <div id="teamSummary"></div>
+
+  <h3 style="font-size:13px;font-weight:600;color:#94a3b8;margin:12px 12px 6px">ALERTES</h3>
+  <div id="alertesList"></div>
+</div>
 </div>
 
-<!-- SAISIE -->
-<div class="page" id="pageSaisie">
-  <div class="flex items-center gap-3 mb-5">
-    <button onclick="showPage('pageDashboard')" style="background:none;border:none;font-size:20px;cursor:pointer">←</button>
-    <h2 style="font-size:18px;font-weight:700">Nouvelle saisie</h2>
-  </div>
-
-  <div class="card">
-    <label style="font-size:12px;font-weight:500;color:#475569">Date</label>
-    <input class="input" type="date" id="sDate" style="margin-bottom:12px">
-
-    <div class="grid grid-cols-2 gap-3 mb-3">
-      <div><label style="font-size:12px;color:#475569">Km debut</label><input class="input" type="number" id="sKmD" placeholder="45230" oninput="calcAuto()"></div>
-      <div><label style="font-size:12px;color:#475569">Km fin</label><input class="input" type="number" id="sKmF" placeholder="45319" oninput="calcAuto()"></div>
-    </div>
-
-    <div class="grid grid-cols-3 gap-3 mb-3">
-      <div><label style="font-size:12px;color:#475569">Carburant (EUR)</label><input class="input" type="number" id="sCarb" step="0.01" oninput="calcAuto()"></div>
-      <div><label style="font-size:12px;color:#475569">Peages (EUR)</label><input class="input" type="number" id="sPeag" step="0.01" oninput="calcAuto()"></div>
-      <div><label style="font-size:12px;color:#475569">Repas (EUR)</label><input class="input" type="number" id="sRep" step="0.01" oninput="calcAuto()"></div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-3 mb-4">
-      <div><label style="font-size:12px;color:#475569">Colis livres</label><input class="input" type="number" id="sColis" oninput="calcAuto()"></div>
-      <div><label style="font-size:12px;color:#475569">Heures travail</label><input class="input" type="number" id="sHeures" step="0.5" oninput="calcAuto()"></div>
-    </div>
-
-    <div style="background:#f0fdf4;border-radius:12px;padding:12px;margin-bottom:16px">
-      <p style="font-size:12px;font-weight:600;color:#065f46">Recap automatique</p>
-      <div style="font-size:13px;color:#065f46;margin-top:6px">
-        <span id="calcKm">0</span> km parcourus ·
-        <span id="calcDep">0</span> EUR depenses ·
-        Marge: <strong id="calcMarge">0 EUR</strong>
-      </div>
-    </div>
-
-    <button class="btn btn-p" onclick="saveEntry()">💾 Enregistrer</button>
-  </div>
+<!-- CHAUFFEURS -->
+<div class="page" id="pageChauffeurs">
+<div class="top-bar"><h1>Equipe</h1><button onclick="showAddChauffeur()" style="background:#4f46e5;color:#fff;border:none;width:32px;height:32px;border-radius:8px;font-size:18px;cursor:pointer">+</button></div>
+<div id="chauffeursList" style="padding:8px 12px"></div>
 </div>
 
-<!-- HISTORIQUE -->
-<div class="page" id="pageHisto">
-  <h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Historique</h2>
-  <div style="display:flex;gap:8px;margin-bottom:16px">
-    <button class="btn btn-outline" style="flex:1;padding:8px;font-size:12px" onclick="filterHisto('semaine')">Semaine</button>
-    <button class="btn btn-outline" style="flex:1;padding:8px;font-size:12px;background:#2563eb;color:#fff;border-color:#2563eb" onclick="filterHisto('mois')" id="btnMois">Mois</button>
-    <button class="btn btn-outline" style="flex:1;padding:8px;font-size:12px" onclick="filterHisto('annee')">Annee</button>
+<!-- RAPPORTS -->
+<div class="page" id="pageRapports">
+<div class="top-bar"><h1>Rapports</h1></div>
+<div style="padding:8px 12px">
+  <div class="card" onclick="exportMensuel()" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+    <div><strong>Rapport mensuel</strong><p style="font-size:12px;color:#64748b">Telecharger le recul du mois</p></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
   </div>
-  <div id="histoContent"></div>
+  <div class="card" onclick="exportClients()" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+    <div><strong>Facturation clients</strong><p style="font-size:12px;color:#64748b">Recap par client</p></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+  </div>
+</div>
+</div>
+
+<!-- PROFIL -->
+<div class="page" id="pageProfil">
+<div class="top-bar"><h1>Profil</h1></div>
+<div style="padding:8px 12px">
+  <div class="card"><p style="font-size:12px;color:#64748b">Entreprise</p><p style="font-weight:600" id="profilName">-</p></div>
+  <div class="card" style="margin-top:8px"><p style="font-size:12px;color:#64748b">Email</p><p id="profilEmail">-</p></div>
+  <div style="margin-top:16px"><button class="btn btn-outline" onclick="logout()" style="color:#fca5a5;border-color:#7f1d1d">Deconnexion</button></div>
+</div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-inner">
-    <button class="nav-item active" onclick="navigate('dashboard')">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-      <span>Accueil</span>
-    </button>
-    <button class="nav-item" onclick="navigate('saisie')">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-      <span>Saisie</span>
-    </button>
-    <button class="nav-item" onclick="navigate('histo')">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-      <span>Statistiques</span>
-    </button>
-  </div>
+<div class="nav-inner">
+<button class="nav-item active" onclick="goPage('dashboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span>Tableau de bord</span></button>
+<button class="nav-item" onclick="goPage('chauffeurs',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg><span>Equipe</span></button>
+<button class="nav-item" onclick="goPage('rapports',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span>Rapports</span></button>
+</div>
 </div>
 
 <script>
-// ==================== STATE ====================
-let APP = {user:null,entries:[],filter:'mois'};
+let APP = {user:null,co:{name:'',prenom:'',email:'',pass:''}, chauffeurs:[], entries:[]};
 
-function init() {
-  const saved = localStorage.getItem('sc_data');
-  if (saved) { try { APP = JSON.parse(saved); } catch(e) {} }
-  if (APP.user) { showPage('pageDashboard'); renderDash(); }
+function load(){
+  try{
+    const s = localStorage.getItem('pf_data');
+    if(s){const d=JSON.parse(s);APP=d;return true}
+  }catch(e){}
+  return false
 }
+function save(){localStorage.setItem('pf_data',JSON.stringify(APP))}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
+function showModal(html){document.getElementById('modalBox').innerHTML=html;document.getElementById('modalOverlay').classList.add('active')}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
 
-function save() { localStorage.setItem('sc_data', JSON.stringify(APP)); }
+load();
 
-// ==================== AUTH ====================
-function showRegister() {
+// AUTH
+function showRegister(){
   document.getElementById('loginForm').style.display='none';
   document.getElementById('registerForm').style.display='block';
 }
-function showLogin() {
-  document.getElementById('registerForm').style.display='block';
-  document.getElementById('loginForm').style.display='none';
+function showLogin(){
+  document.getElementById('registerForm').style.display='none';
+  document.getElementById('loginForm').style.display='block';
 }
-
-function login() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  if (!email||!pass) return showToast('Veuillez remplir tous les champs');
-  const users = JSON.parse(localStorage.getItem('sc_users')||'[]');
-  const u = users.find(x=>x.email===email&&x.pass===pass);
-  if (!u) return showToast('Email ou mot de passe incorrect');
-  APP.user = u; save(); showPage('pageDashboard'); renderDash();
-}
-
-function register() {
-  const n=document.getElementById('regName').value.trim();
+function register(){
+  const co=document.getElementById('regName').value.trim();
+  const p=document.getElementById('regPrenom').value.trim();
   const e=document.getElementById('regEmail').value.trim();
-  const p=document.getElementById('regPass').value;
-  const ph=document.getElementById('regPhone').value.trim();
-  const c=document.getElementById('regCompany').value.trim();
-  if(!n||!e||!p) return showModal('⚠️','Champs requis','Veuillez remplir tous les champs obligatoires');
-  if(p.length<6) return showModal('⚠️','Mot de passe trop court','Minimum 6 caracteres');
-  let users = JSON.parse(localStorage.getItem('sc_users')||'[]');
-  if(users.find(x=>x.email===e)) return showModal('❌','Email deja utilise','Cet email est deja associe a un compte');
-  users.push({id:Date.now(),name:n,email:e,pass:p,phone:ph,company:c,created:new Date().toISOString()});
-  localStorage.setItem('sc_users',JSON.stringify(users));
-  APP.user=users[users.length-1]; save(); showToast('Compte cree !');
-  showPage('pageDashboard'); renderDash();
+  const pass=document.getElementById('regPass').value;
+  if(!co||!p||!e||!pass)return toast('Tous les champs requis');
+  if(pass.length<6)return toast('6 caracteres min');
+  APP.co={name:co,prenom:p,email:e,pass:pass};
+  APP.user=co;save();
+  document.getElementById('avatarLetter').textContent=co[0];
+  goPage('dashboard',document.querySelector('.nav-item'));
+  showPage('pageDashboard');renderDash();
+}
+function login(){
+  const e=document.getElementById('loginEmail').value.trim();
+  const p=document.getElementById('loginPass').value;
+  if(!e||!p)return toast('Email et mot de passe requis');
+  if(e!==APP.co.email||p!==APP.co.pass)return toast('Identifiants incorrects');
+  APP.user=APP.co.name;save();
+  document.getElementById('avatarLetter').textContent=APP.co.name[0];
+  showPage('pageDashboard');renderDash();
+  goPage('dashboard',document.querySelector('.nav-item'));
 }
 
-// ==================== NAV ====================
-function showPage(id) {
+// NAV
+function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-function navigate(p) {
-  if(p==='dashboard'){showPage('pageDashboard');renderDash()}
-  if(p==='saisie'){showPage('pageSaisie');document.getElementById('sDate').value=new Date().toISOString().split('T')[0];calcAuto()}
-  if(p==='histo'){showPage('pageHisto');renderHisto()}
+function goPage(p,btn){
+  const pages={dashboard:'pageDashboard',chauffeurs:'pageChauffeurs',rapports:'pageRapports',profil:'pageProfil'};
+  showPage(pages[p]);
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(p==='dashboard')renderDash();
+  if(p==='chauffeurs')renderChauffeurs();
 }
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2500)}
-function showModal(icon,title,text){document.getElementById('modalIcon').textContent=icon;document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('modalOverlay').classList.add('active')}
-function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
 
-// ==================== DASHBOARD ====================
-function renderDash() {
-  const entries = APP.entries;
-  const now = new Date();
-  const monthStart = new Date(now.getFullYear(),now.getMonth(),1);
-  const monthEntries = entries.filter(e => new Date(e.date) >= monthStart);
-  
-  const totalGain = monthEntries.reduce((s,e)=>s+(e.gain||0),0);
-  const totalDep = monthEntries.reduce((s,e)=>s+(e.dep||0),0);
-  const totalMarge = totalGain - totalDep;
+// DASHBOARD
+function renderDash(){
+  const now=new Date();const ms=new Date(now.getFullYear(),now.getMonth(),1);
+  const me=APP.entries.filter(e=>new Date(e.d)>=ms);
+  const ca=me.reduce((s,e)=>s+parseFloat(e.g||0),0);
+  const dp=me.reduce((s,e)=>s+parseFloat(e.dp||0),0);
+  const km=me.reduce((s,e)=>s+parseInt(e.km||0),0);
+  const cl=me.reduce((s,e)=>s+parseInt(e.c||0),0);
+  const j=me.filter(e=>e.d).length;
+  document.getElementById('caMois').textContent=ca.toFixed(0)+' EUR';
+  document.getElementById('margeMois').textContent=(ca-dp).toFixed(0)+' EUR';
+  document.getElementById('depMois').textContent=dp.toFixed(0)+' EUR';
+  document.getElementById('nbChauffeurs').textContent=APP.chauffeurs.length;
+  document.getElementById('totalKm').textContent=km;
+  document.getElementById('totalColis').textContent=cl;
+  document.getElementById('nbJours').textContent=j;
 
-  document.getElementById('dashName').textContent = APP.user?.name||'Chauffeur';
-  document.getElementById('monthGains').textContent = totalGain.toFixed(0)+' EUR';
-  document.getElementById('monthDep').textContent = totalDep.toFixed(0)+' EUR';
-  document.getElementById('monthMarge').textContent = totalMarge.toFixed(0)+' EUR';
-
-  // Quick stats
-  const today = new Date().toISOString().split('T')[0];
-  const todayEntry = entries.find(e=>e.date===today);
-  document.getElementById('quickStats').innerHTML = `
-    <div class="stat card"><div class="v" style="color:#2563eb">${todayEntry?.colis||0}</div><div class="l">Colis</div></div>
-    <div class="stat card"><div class="v" style="color:#059669">${todayEntry?.km||0}</div><div class="l">Km</div></div>
-    <div class="stat card"><div class="v" style="color:#d97706">${(todayEntry?.gain||0).toFixed(0)}</div><div class="l">Gains</div></div>
-    <div class="stat card"><div class="v" style="color:#dc2626">${(todayEntry?.dep||0).toFixed(0)}</div><div class="l">Dep.</div></div>
-  `;
-
-  // Last 5 entries
-  const last5 = [...entries].reverse().slice(0,5);
-  document.getElementById('lastEntries').innerHTML = last5.length ? last5.map(e => {
-    const m = (e.gain||0)-(e.dep||0);
-    const cls = m>=0?'badge-g':'badge-r';
+  // Team summary
+  document.getElementById('teamSummary').innerHTML=APP.chauffeurs.length?APP.chauffeurs.map(c=>{
+    const ce=APP.entries.filter(e=>e.ch_id===c.id&&new Date(e.d)>=ms);
+    const cca=ce.reduce((s,e)=>s+parseFloat(e.g||0),0);
+    const ckm=ce.reduce((s,e)=>s+parseInt(e.km||0),0);
     return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px">
-      <div><div style="font-weight:600;font-size:13px">${e.date}</div><div style="font-size:11px;color:#94a3b8">${e.km} km · ${e.colis} colis</div></div>
-      <div style="text-align:right"><div style="font-weight:700;font-size:14px">${m.toFixed(0)} EUR</div><span class="badge ${cls}">${m>=0?'+':''}${m.toFixed(0)}</span></div>
+      <div><div style="font-weight:600">${c.n}</div><div style="font-size:11px;color:#64748b">${ckm}km</div></div>
+      <div style="text-align:right"><div style="font-weight:700;color:#6ee7b7">${cca.toFixed(0)} EUR</div></div>
     </div>`;
-  }).join('') : '<p style="text-align:center;padding:20px;color:#94a3b8">Aucune saisie. Commencez par en ajouter une !</p>';
+  }).join(''):'<div class="card" style="text-align:center;padding:24px;color:#64748b">Aucun chauffeur. Ajoutez-en dans Equipe.</div>';
+
+  // Alertes
+  document.getElementById('alertesList').innerHTML=APP.entries.filter(e=>{
+    const m=(e.g||0)-(e.dp||0);return m<0;
+  }).slice(0,3).map(e=>{
+    const c=APP.chauffeurs.find(x=>x.id===e.ch_id);
+    return `<div class="card" style="border-left:3px solid #dc2626;padding:10px 14px">
+      <div style="font-size:12px"><strong>${c?c.n:'?'}</strong> - ${e.d}</div>
+      <div style="font-size:11px;color:#fca5a5">Marge negative: ${((e.g||0)-(e.dp||0)).toFixed(0)} EUR</div>
+    </div>`;
+  }).join('')||'<div class="card" style="text-align:center;padding:16px;color:#64748b;font-size:13px">Aucune alerte</div>';
 }
 
-// ==================== SAISIE ====================
-function calcAuto() {
+// CHAUFFEURS
+function renderChauffeurs(){
+  document.getElementById('chauffeursList').innerHTML=APP.chauffeurs.map((c,i)=>{
+    const ce=APP.entries.filter(e=>e.ch_id===c.id);
+    const ckm=ce.reduce((s,e)=>s+parseInt(e.km||0),0);
+    const cca=ce.reduce((s,e)=>s+parseFloat(e.g||0),0);
+    return `<div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-weight:600">${c.n}</div><div style="font-size:11px;color:#64748b">${c.t||'-'}</div></div>
+        <button onclick="showSaisieChauffeur(${i})" class="btn btn-primary" style="width:auto;padding:6px 16px;font-size:12px">Saisir</button>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:8px;font-size:12px;color:#64748b">
+        <span>${ckm}km</span><span>${cca.toFixed(0)}EUR</span><span>${ce.length} jours</span>
+      </div>
+    </div>`;
+  }).join('')||'<div class="card" style="text-align:center;padding:32px;color:#64748b">Cliquez sur + pour ajouter un chauffeur</div>';
+}
+
+function showAddChauffeur(){
+  showModal(`
+    <h3>Nouveau chauffeur</h3>
+    <input class="input" id="chName" placeholder="Nom du chauffeur" style="margin-bottom:8px">
+    <input class="input" id="chTel" placeholder="Telephone" style="margin-bottom:8px">
+    <input class="input" id="chVehicule" placeholder="Vehicule (ex: Ford Transit 12m3)" style="margin-bottom:12px">
+    <div class="btn btn-primary" onclick="addChauffeur()">Ajouter</div>
+  `);
+}
+function addChauffeur(){
+  const n=document.getElementById('chName').value.trim();
+  if(!n)return toast('Nom requis');
+  APP.chauffeurs.push({id:Date.now(),n:n,t:document.getElementById('chTel').value.trim(),v:document.getElementById('chVehicule').value.trim()});
+  save();closeModal();renderChauffeurs();toast('Chauffeur ajoute');
+}
+
+function showSaisieChauffeur(i){
+  const c=APP.chauffeurs[i];
+  showModal(`
+    <h3>Saisie: ${c.n}</h3>
+    <input class="input" type="date" id="sDate" value="${new Date().toISOString().split('T')[0]}" style="margin-bottom:8px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
+      <input class="input" type="number" id="sKmD" placeholder="Km debut">
+      <input class="input" type="number" id="sKmF" placeholder="Km fin">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">
+      <input class="input" type="number" id="sCarb" placeholder="Carburant EUR" step="0.01">
+      <input class="input" type="number" id="sPeag" placeholder="Peages EUR" step="0.01">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+      <input class="input" type="number" id="sColis" placeholder="Colis livres">
+      <input class="input" type="number" id="sHeures" placeholder="Heures" step="0.5">
+    </div>
+    <div class="btn btn-primary" onclick="saveSaisieChauffeur(${i})">Enregistrer</div>
+  `);
+}
+
+function saveSaisieChauffeur(i){
+  const d=document.getElementById('sDate').value;
   const kmD=parseFloat(document.getElementById('sKmD').value)||0;
   const kmF=parseFloat(document.getElementById('sKmF').value)||0;
-  const carb=parseFloat(document.getElementById('sCarb').value)||0;
-  const peag=parseFloat(document.getElementById('sPeag').value)||0;
-  const rep=parseFloat(document.getElementById('sRep').value)||0;
-  const colis=parseFloat(document.getElementById('sColis').value)||0;
+  if(!d)return toast('Date requise');
   const km=Math.max(0,kmF-kmD);
-  const dep=carb+peag+rep;
-  const gain=colis*1.25;
-  document.getElementById('calcKm').textContent=km;
-  document.getElementById('calcDep').textContent=dep.toFixed(2);
-  document.getElementById('calcMarge').textContent=(gain-dep).toFixed(2)+' EUR';
-}
-
-function saveEntry() {
-  const date=document.getElementById('sDate').value;
-  const kmD=parseFloat(document.getElementById('sKmD').value)||0;
-  const kmF=parseFloat(document.getElementById('sKmF').value)||0;
   const carb=parseFloat(document.getElementById('sCarb').value)||0;
   const peag=parseFloat(document.getElementById('sPeag').value)||0;
-  const rep=parseFloat(document.getElementById('sRep').value)||0;
   const colis=parseFloat(document.getElementById('sColis').value)||0;
   const heures=parseFloat(document.getElementById('sHeures').value)||0;
-  if(!date) return showToast('Date requise');
-  const km=Math.max(0,kmF-kmD);
-  const dep=carb+peag+rep;
   const gain=colis*1.25;
-  APP.entries.push({id:Date.now(),date,kmDebut:kmD,kmFin:kmF,km,carb,peag,rep,colis,heures,gain,dep,marge:gain-dep,created:new Date().toISOString()});
-  save(); showToast('Saisie enregistree !');
-  document.querySelectorAll('.input').forEach(i=>i.value='');
-  document.getElementById('sDate').value=new Date().toISOString().split('T')[0];
-  showPage('pageDashboard'); renderDash();
+  const dep=carb+peag;
+  APP.entries.push({id:Date.now(),ch_id:APP.chauffeurs[i].id,d:d,km:km,carb:carb,peag:peag,c:colis,h:heures,g:gain,dp:dep});
+  save();closeModal();toast('Saisie enregistree');
 }
 
-// ==================== HISTORIQUE ====================
-function filterHisto(f) {
-  APP.filter=f; save();
-  document.querySelectorAll('#pageHisto .btn-outline').forEach(b=>{b.style.background='';b.style.color='';b.style.borderColor='#e2e8f0'});
-  event.currentTarget.style.background='#2563eb';event.currentTarget.style.color='#fff';event.currentTarget.style.borderColor='#2563eb';
-  renderHisto();
-}
-
-function renderHisto() {
-  let entries = [...APP.entries];
-  const now = new Date();
-  if(APP.filter==='semaine'){const w=new Date(now);w.setDate(w.getDate()-w.getDay());entries=entries.filter(e=>new Date(e.date)>=w)}
-  else if(APP.filter==='mois'){entries=entries.filter(e=>new Date(e.date).getMonth()===now.getMonth()&&new Date(e.date).getFullYear()===now.getFullYear())}
-  else if(APP.filter==='annee'){entries=entries.filter(e=>new Date(e.date).getFullYear()===now.getFullYear())}
-  
-  const totalK=entries.reduce((s,e)=>s+(e.km||0),0);
-  const totalG=entries.reduce((s,e)=>s+(e.gain||0),0);
-  const totalD=entries.reduce((s,e)=>s+(e.dep||0),0);
-  const totalM=totalG-totalD;
-  const jours=entries.filter(e=>e.date).length;
-
-  let html = `
-    <div class="grid grid-cols-4 gap-2 mb-4">
-      <div class="card stat"><div class="v" style="color:#2563eb;font-size:20px">${jours}</div><div class="l">Jours</div></div>
-      <div class="card stat"><div class="v" style="color:#059669;font-size:20px">${totalK}</div><div class="l">Km</div></div>
-      <div class="card stat"><div class="v" style="color:#d97706;font-size:20px">${totalG.toFixed(0)}</div><div class="l">Gains EUR</div></div>
-      <div class="card stat"><div class="v" style="color:#2563eb;font-size:20px">${totalM.toFixed(0)}</div><div class="l">Marge EUR</div></div>
-    </div>
-  `;
-
-  const sorted = entries.sort((a,b)=>b.date.localeCompare(a.date));
-  html += sorted.map(e => {
-    const m = (e.gain||0)-(e.dep||0);
-    return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px">
-      <div><div style="font-weight:600;font-size:12px">${e.date}</div>
-      <div style="font-size:10px;color:#94a3b8">${e.km||0}km · ${e.colis||0} colis · ${e.heures||0}h</div></div>
-      <div style="text-align:right"><div style="font-weight:700;font-size:13px">${m.toFixed(0)} EUR</div>
-      <span class="badge ${m>=0?'badge-g':'badge-r'}">${m>=0?'+':''}${m.toFixed(0)}</span></div>
-    </div>`;
-  }).join('')||'<p style="text-align:center;padding:20px;color:#94a3b8">Aucune donnee</p>';
-  
-  document.getElementById('histoContent').innerHTML = html;
-}
-
-// ==================== EXPORT ====================
-function exportPDF() {
-  const entries = APP.entries;
-  if(!entries.length) return showToast('Aucune donnee a exporter');
-  let txt = "SUIVI CHAUFFEUR - RAPPORT\n";
-  txt += "Date: "+new Date().toLocaleDateString('fr-FR')+"\n";
-  txt += "Chauffeur: "+(APP.user?.name||'N/C')+"\n";
-  txt += "=".repeat(40)+"\n\n";
-  const totalG=entries.reduce((s,e)=>s+(e.gain||0),0);
-  const totalD=entries.reduce((s,e)=>s+(e.dep||0),0);
-  entries.sort((a,b)=>a.date.localeCompare(b.date)).forEach(e=>{
-    txt += `${e.date} | ${e.km}km | ${e.colis} colis | Gain:${(e.gain||0).toFixed(0)}EUR | Dep:${(e.dep||0).toFixed(0)}EUR | Marge:${(e.marge||0).toFixed(0)}EUR\n`;
+// RAPPORTS
+function exportMensuel(){
+  const now=new Date();const ms=new Date(now.getFullYear(),now.getMonth(),1);
+  const me=APP.entries.filter(e=>new Date(e.d)>=ms);
+  if(!me.length)return toast('Aucune donnee');
+  let txt=`PROXIFLOTTE - RAPPORT MENSUEL\n`;
+  txt+=`${now.toLocaleDateString('fr-FR')}\n`;
+  txt+=`${APP.co.name}\n`;txt+='='.repeat(40)+'\n\n';
+  APP.chauffeurs.forEach(c=>{
+    const ce=me.filter(e=>e.ch_id===c.id);if(!ce.length)return;
+    const ckm=ce.reduce((s,e)=>s+parseInt(e.km||0),0);
+    const cca=ce.reduce((s,e)=>s+parseFloat(e.g||0),0);
+    txt+=`${c.n}: ${ckm}km | ${ce.length}j | ${cca.toFixed(0)}EUR\n`;
   });
-  txt += "\n"+"=".repeat(40)+"\n";
-  txt += `TOTAL: ${entries.length} jours | Gains: ${totalG.toFixed(0)}EUR | Depenses: ${totalD.toFixed(0)}EUR | Marge: ${(totalG-totalD).toFixed(0)}EUR\n`;
-  
-  const blob = new Blob([txt], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'suivi_chauffeur_rapport.txt';
-  a.click();
-  showToast('Rapport telecharge !');
+  txt+='\n' + '='.repeat(40) + '\n';
+  txt+=`TOTAL: ${me.reduce((s,e)=>s+parseInt(e.km||0),0)}km | ${me.reduce((s,e)=>s+parseFloat(e.g||0),0).toFixed(0)}EUR\n`;
+  const b=new Blob([txt],{type:'text/plain'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download='rapport_mensuel.txt';a.click();toast('Rapport telecharge');
 }
 
-init();
+function exportClients(){
+  toast('Module facturation en cours de dev');
+}
+
+// PROFIL
+function showProfil(){
+  document.getElementById('profilName').textContent=APP.co.name||'-';
+  document.getElementById('profilEmail').textContent=APP.co.email||'-';
+  goPage('profil',document.querySelector('.nav-item'));
+  showPage('pageProfil');
+}
+function logout(){
+  if(!confirm('Deconnecter ?'))return;
+  APP.user='';localStorage.removeItem('pf_data');location.reload();
+}
+
+// INIT
+if(APP.user){showPage('pageDashboard');renderDash();document.getElementById('avatarLetter').textContent=APP.co.name[0];}
 </script>
 </body>
 </html>
